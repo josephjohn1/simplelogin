@@ -66,7 +66,7 @@ const RegisterScreen = (props) => {
             const data = {
                 id: uid,
                 email:userEmail,
-               // fullName:userName,
+                fullName:userName,
                 password:userPassword,
             };
             const usersRef = app.firestore().collection('users')
