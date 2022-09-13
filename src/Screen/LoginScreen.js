@@ -12,7 +12,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import app from './firebase/config'
- 
+//import AsyncStorage from '@react-native-async-storage/async-storage';
 import AsyncStorage from '@react-native-community/async-storage';
  
 import Loader from './Components/Loader';
@@ -46,16 +46,19 @@ const LoginScreen = ({navigation}) => {
         usersRef
             .doc(uid)
             .get()
-            .then(firestoreDocument => {
+            .then (firestoreDocument => {
                 if (!firestoreDocument.exists) {
                     alert("User does not exist anymore.")
                     return;
                 }
-                const user = firestoreDocument.data()
+                const user = firestoreDocument.data().id;
+                console.log(user)
+                
                 AsyncStorage.setItem('user_id', user);
         //  console.log(responseJson.data.email);
           navigation.replace('DrawerNavigationRoutes');
               //  navigation.navigate('Home', {user})
+              
             })
             .catch(error => {
                 alert(error)
@@ -64,6 +67,7 @@ const LoginScreen = ({navigation}) => {
     })
     .catch((error) => {
       //Hide Loader
+      alert(error)
       setLoading(false);
       console.error(error);
     });
